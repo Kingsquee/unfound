@@ -1,0 +1,12 @@
+[package]
+name = "state"
+version = "0.1.0"
+authors = ["Kingsquee <Kingsquee@users.noreply.github.com>"]
+
+[lib]
+name = "state"
+path = "state.rs"
+plugin = true
+
+[dependencies]
+genmesh = "*"
