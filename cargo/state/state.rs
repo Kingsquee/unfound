@@ -1,8 +1,8 @@
 // 'solution' a: Commenting this out makes compilation work.
-extern crate genmesh;
+extern crate foo;
 
 // 'solution' b: Uncommenting this and the field below makes compilation work
-// use genmesh::generators::{Plane, SharedVertex};
+//use foo::bar;
 
 pub struct State {
     pub a: usize
@@ -13,7 +13,7 @@ impl State {
         State {
             a: 0
             //'solution' b: Uncommenting this and the 'use genmesh::generators::etc' above makes compilation work
-            //a: Plane::subdivide(256, 256).shared_vertex_count()
+            //a: bar()
         }
     }
 }

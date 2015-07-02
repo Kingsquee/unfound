@@ -8,5 +8,5 @@ name = "state"
 path = "state.rs"
 plugin = true
 
-[dependencies]
-genmesh = "*"
+[dependencies.foo]
+path = "./../libfoo"

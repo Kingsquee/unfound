@@ -10,5 +10,5 @@ if [ $? -eq 0 ]
 then
     echo "And...it works. If you didn't change anything in the code, I'm confused and jealous."
 else
-    echo "That should have printed 66049..."
+    echo "That should have printed 12..."
 fi
