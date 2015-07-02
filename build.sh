@@ -8,7 +8,7 @@ cd ./kernel/ && ./build.sh && ./run.sh
 
 if [ $? -eq 0 ]
 then
-    echo "And...it works. If you didn't remove 'extern crate genmesh;' from state.rs, I'm confused and jealous."
+    echo "And...it works. If you didn't change anything in the code, I'm confused and jealous."
 else
-    echo "That should have printed 66049. Try removing the 'extern crate genmesh;' from state.rs, and run this again."
+    echo "That should have printed 66049..."
 fi

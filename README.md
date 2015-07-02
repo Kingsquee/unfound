@@ -1,6 +1,6 @@
 This is a simplified version of Worldsong's architecture, which demonstrates a linking issue I'm dealing with.
 
-./state/state.rs:
+./state/state.rs references a library (in this case, genmesh), but doesn't use it
 ```
 extern crate genmesh; // Removing this makes compilation work.
 
@@ -17,7 +17,7 @@ impl State {
 }
 ```
 
-./process/process.rs:
+./process/process.rs also references the library, but uses it
 ```
 extern crate state;
 use state::State;
@@ -32,7 +32,7 @@ pub fn execute(state: &mut State) {
 }
 ```
 
-./kernel/kernel.rs:
+./kernel/kernel.rs just links them together
 ```
 extern crate state;
 extern crate process;
@@ -45,7 +45,7 @@ fn main() {
 }
 ```
 
-./build.sh
+when we execute ./build.sh (calls rustc/cargo and links the libraries with LD_LIBRARY_PATH)
 ```
 [.../]$ ./build.sh
 Compiling state
@@ -62,3 +62,39 @@ collect2: error: ld returned 1 exit status
 error: aborting due to previous error
 That should have printed 66049. Try removing the 'extern crate genmesh;' from state.rs, and run this again.
 ```
+
+If we remove 'extern crate genmesh;' from state.rs, it will build fine.
+```
+pub struct State {
+    pub a: usize
+}
+
+impl State {
+    pub fn new() -> State {
+        State {
+            a: 0
+        }
+    }
+}
+```
+
+Interestingly, if we *use* genmesh in state.rs, it will also build fine!
+```
+extern crate genmesh;
+
+use genmesh::generators::{Plane, SharedVertex};
+
+pub struct State {
+    pub a: usize
+}
+
+impl State {
+    pub fn new() -> State {
+        State {
+            a: Plane::subdivide(256, 256).shared_vertex_count()
+        }
+    }
+}
+```
+
+Why this occurs, I have no idea. Help would be greatly appreciated.
